@@ -5,9 +5,9 @@
 id: ihe.iti.restfulatna
 canonical: https://profiles.ihe.net/Domain/ITI/RESTfulATNA
 version: 1.0.0-comment
-name: Add_RESTful_ATNA_(Query and Feed)
+name: RESTful_ATNA_supplement
 title: IHE_ITI_RESTfulATNA
-description: Add_RESTful_ATNA_(Query and Feed) Supplement
+description: Convert RESTful ATNA supplement to an IG published
 releaseLabel: ci-build
 #releaseLabel: ballot
 #releaseLabel: trial-use
