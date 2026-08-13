@@ -2,12 +2,12 @@
 # ───────────────────────────────────────────────────
 # the id should be lowercase made up of "ihe." + {domain acronym} + "." + {profile acronym/short-name}
 # e.g. ihe.iti.mhds, or ihe.iti.basicaudit
-id: ihe.domain.profile
-canonical: https://profiles.ihe.net/Domain/Profile
-version: 0.0.1-current
-name: IHE_Domain_Profile
-title: "spelled out name of the IHE Profile"
-description: put the short description of the profile here. it should explain what problem is being solved
+id: ihe.iti.restfulatna
+canonical: https://profiles.ihe.net/Domain/ITI/RESTfulATNA
+version: 1.0.0-comment
+name: Add_RESTful_ATNA_(Query and Feed)
+title: IHE_ITI_RESTfulATNA
+description: Add_RESTful_ATNA_(Query and Feed) Supplement
 releaseLabel: ci-build
 #releaseLabel: ballot
 #releaseLabel: trial-use
