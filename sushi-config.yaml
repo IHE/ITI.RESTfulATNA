@@ -3,10 +3,10 @@
 # the id should be lowercase made up of "ihe." + {domain acronym} + "." + {profile acronym/short-name}
 # e.g. ihe.iti.mhds, or ihe.iti.basicaudit
 id: ihe.iti.restfulatna
-canonical: https://profiles.ihe.net/Domain/ITI/RESTfulATNA
+canonical: https://profiles.ihe.net/ITI/RESTfulATNA
 version: 1.0.0-comment
-name: RESTful_ATNA_supplement
-title: IHE_ITI_RESTfulATNA
+name: IHE_ITI_RESTful_ATNA
+title: "RESTful ATNA"
 description: Convert RESTful ATNA supplement to an IG published
 releaseLabel: ci-build
 #releaseLabel: ballot
