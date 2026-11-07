@@ -69,8 +69,14 @@ pages:
   volume-1.md:
     title: 1:XX ToDo Volume 1
     generation: markdown
-  domain-YY.md:
-    title: 2:3.YY Transaction one [Domain-YY]
+  ITI-20.md:
+    title: 2:3.ITI-20 Record Audit Event [ITI-20]
+    generation: markdown
+  ITI-81.md:
+    title: 2:3.ITI-81 Retrieve ATNA Audit Event [ITI-81]
+    generation: markdown
+  ITI-82.md:
+    title: 2:3.ITI-82 Retrieve Syslog Event [ITI-82]
     generation: markdown
   domain-ZZ.md:
     title: 3:?.ZZ Content one [Domain-ZZ]
@@ -99,7 +105,9 @@ menu:
     Security Considerations: volume-1.html#security-considerations
     Cross-Profile Considerations: volume-1.html#other-grouping
   Volume 2:
-    "Transaction one [Domain-YY]": domain-YY.html
+    "Record Audit Event [ITI-20]": ITI-20.html
+    "Retrieve ATNA Audit Event [ITI-81]": ITI-81.html
+    "Retrieve Syslog Event [ITI-82]": ITI-82.html
   Volume 3:
     "Content one [Domain-ZZ]": domain-ZZ.html
   Artifacts: artifacts.html

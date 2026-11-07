@@ -24,8 +24,9 @@ This guide is organized into the following sections:
    1. [Cross Profile Considerations](volume-1.html#other-grouping)
    1. **TODO: point to the Volume 1 Appendix if there is one**
 2. Volume 2: Transaction Detail
-   1. [ToDo do \[domain-YY\]](domain-YY.html)
-   1. **TODO: point to the Volume 2 Appendix if there is one**
+   1. [\[ITI-20\]](ITI-20.html)
+   2. [\[ITI-81\]](ITI-81.html)
+   3. [\[ITI-82\]](ITI-82.html)
 3. Volume 3: Metadata and Content
    1. [Content One](domain-ZZ.html)
 4. Volume 4: National Extensions
