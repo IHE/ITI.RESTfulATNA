@@ -1,6 +1,15 @@
 @startuml
 skinparam svgDimensionStyle false
-agent "[[#client Client]]" as Client
-agent "[[#server Server]]" as Server
-Client -down-> Server : "go [[domain-YY.html Domain-YY]]"
+agent "Secure Node" as SN
+agent "Audit Record Repository" as ARR
+agent "Audit Record Repository\nAudit Record Forwarder " as ARRARF
+agent "Audit Consumer" as AC
+agent "Secure Application" as SA
+
+SN <--> SA : "Node Authentication [ITI-19]"
+SN --> ARR : "Record Audit Event [ITI-20]"
+SA --> ARR : "Record Audit Event [ITI-20]"
+ARRARF --> ARR : "Record Audit Event [ITI-20]"
+AC --> ARR : "Record Audit Event [ITI-81]"
+AC --> ARR : "Record Audit Event [ITI-82]"
 @enduml

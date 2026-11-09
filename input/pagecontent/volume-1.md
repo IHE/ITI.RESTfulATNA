@@ -1,71 +1,49 @@
-
-**TODO: Provide an end-user friendly overview of what the profile does for them. Keep it brief (a paragraph or two, up to a page). If extensive detail is needed, it should be included in Section XX.4- Use Cases.**
-
-**TODO: Explicitly state whether this is a Workflow, Transport, or Content Module (or combination) profile. See the IHE Technical Frameworks General Introduction for definitions of these profile types. The IHE Technical Frameworks [General Introduction](https://profiles.ihe.net/GeneralIntro/). **
-
 <a name="actors-and-transactions"> </a>
 
-## 1:XX.1 ToDo Actors, Transactions, and Content Modules
-
-* Actors
-  * [Client](#client)
-  * [Server](#server)
-* Transactions
-  * [do domain-Y](domain-YY.html)
-
-Actors and transactions are used to achieve this use-case...
-
-<figure>
-{%include usecase1-processflow.svg%}
-<figcaption><strong>Figure 1:X.X.X.X-X: Use Case 1 Process Flow</strong></figcaption>
-</figure>
-<br clear="all">
+## 1:XX.1 Actors, Transactions, and Content Modules
 
 This section defines the actors and transactions in this implementation guide.
 
-Figure below shows the actors directly
-involved in the ToDo 
-Profile and the relevant transactions between them.
+* Actors
+  * [Audit Record Repository](#ARR)
+  * [Audit Consumer](#AC)
+  * [Audit Record Forwarder](#ARF)
+  * [Secure Node](#SN)
+  * [Secure Application](#SA)
+* Transactions
+  * [Record Audit Event [ITI-20]](ITI-20.html)
+  * [Retrieve ATNA Audit Event [ITI-81]](ITI-81.html)
+  * [Retrieve Syslog Event [ITI-82]](ITI-82.html)
+  * [Authenticate Node [ITI-19]](ITI-19.html)
+
+
+The figure below shows the actors directly involved in the RESTfulAtna Profile and the relevant transactions between them.
 
 <figure>
 {%include ActorsAndTransactions.svg%}
-<figcaption><strong>Figure 1:XX.1-2: ToDo Actor Diagram</strong></figcaption>
+<figcaption><strong>Figure 1:XX.1-2: RESTful ATNA Actor Diagram</strong></figcaption>
 </figure>
 <br clear="all">
 
-or for Content Profiles use this
-<figure>
-{%include docSharing.svg%}
-<figcaption><strong>Figure 1:XX.1-2: ToDo Document Sharing Actor Diagram</strong></figcaption>
-</figure>
-<br clear="all">
+<p id ="tXX.1-1" class="tableTitle"><strong>Table 1:XX.1-1: RESTful ATNA - Actors and Transactions</strong></p>
 
-<p id ="tXX.1-1" class="tableTitle"><strong>Table 1:XX.1-1: Profile Acronym Profile - Actors and Transactions</strong></p>
-
-| Actors  | Transactions  | Initiator or Responder | Optionality     | Reference                                  |
-|---------|---------------|------------------------|-----------------|--------------------------------------------|
-| Actor A | Transaction 1 |                        | R               | [Domain Acronym TF-2: 3.Y1](./domain-Y1.html) |
-|         | Transaction 2 |                        | R               | [Domain Acronym TF-2: 3.Y2](./domain-Y2.html) |
-| Actor F | Transaction 1 |                        | R               | [Domain Acronym TF-2: 3.Y1](./domain-Y1.html) |
-|         | Transaction 2 |                        | R               | [Domain Acronym TF-2: 3.Y2](./domain-Y2.html) |
-| Actor D | Transaction 1 |                        | R               | [Domain Acronym TF-2: 3.Y1](./domain-Y1.html) |
-| Actor E | Transaction 2 |                        | R               | [Domain Acronym TF-2: 3.Y2](./domain-Y2.html) |
-|         | Transaction 3 |                        | O ( See Note 1) | [Domain Acronym TF-2: 3.Y3](./domain-Y3.html) |
-|         | Transaction 4 |                        | O ( See Note 1) | [Domain Acronym TF-2: 3.Y4](./domain-Y4.html) |
-| Actor B | Transaction 3 |                        | R               | [Domain Acronym TF-2: 3.Y3](./domain-Y3.html) |
-|         | Transaction 4 |                        | O ( See Note 2) | [Domain Acronym TF-2: 3.Y4](./domain-Y4.html) |
+| Actors                  | Transactions                       | Optionality | Reference      |
+|-------------------------|------------------------------------|-------------|----------------|
+| Audit Record Repository | Record Audit Event [ITI-20]        | R           | ITI TF-2: 3.20 |
+|                         | Retrieve ATNA Audit Event [ITI-81] | O           | ITI TF-2: 3.81 |
+|                         | Retrieve Syslog Event [ITI-82]     | O           | ITI TF-2: 3.82 |
+| Audit Consumer          | Retrieve ATNA Audit Event [ITI-81] | O           | ITI TF-2: 3.81 |
+|                         | Retrieve Syslog Event [ITI-82]     | O           | ITI TF-2: 3.82 |
+| Audit Record Forwarder  | Record Audit Event [ITI-20]        | R           | ITI TF-2: 3.20 |
+| Secure Node             | Authenticate Node [ITI-19]         | R           | ITI TF-2: 3.19 |
+|                         | Record Audit Event [ITI-20]        | R           | ITI TF-2: 3.20 |
+| Secure Application      | Authenticate Node [ITI-19]         | R           | ITI TF-2: 3.19 |
+|                         | Record Audit Event [ITI-20]        | R           | ITI TF-2: 3.20 |
 {: .grid}
 
-Note 1: *For example, a note could specify that at least one of the
-transactions shall be supported by an actor or other variations. For
-example: Note: Either Transaction Y3 or Transaction Y4 shall be
-implemented for Actor E.*
-
-Note 2: *For example, could specify that Transaction Y4 is required
-if Actor B supports XYZ Option, see Section 1:XX.3.X.*
-
 ### 1:XX.1.1 Actors
-###  Audit Record Repository
+The actors in this profile are described in more detail in the sections below.
+#### 1:XX.1.1.1 Audit Record Repository
 
 > The Audit Record Repository receives event audit reports and stores
 > them. It may be part of a federated network of repositories. It is
@@ -89,20 +67,17 @@ if Actor B supports XYZ Option, see Section 1:XX.3.X.*
 </ol>
 
 > The Audit Record Repository may ignore or process messages in non-IHE message formats. This may be for backwards compatibility or other reasons.
->
 > The Audit Record Repository be grouped with a Secure Node or Secure Application.
-
 > The Audit Record Repository may support search capabilities as defined in ITI TF-2: 3.81 and 3.82.
+> Audit Record Repository may support search capabilities as defined in ITI TF-2: 3.81 and 3.82.
 
-> Audit Record Repository may support search capabilities as defined in ITI TF-2: 3.81 and[3.82.
-
-### 9.1.1.5 Audit Consumer
+#### 1:XX.1.1.2 Audit Consumer
 
 > The Audit Consumer queries an Audit Record Repository for syslog and
 > ATNA audit records using Syslog metadata and ATNA audit record
 > content. Subsequent processing of the query result is not defined in this profile.
 
-##  9.2 ATNA Actor Options
+## 1:XX.2 Actor Options
 
 > Options that may be selected for this Integration Profile are listed
 > in the Table 9.2-1 along with the actors to which they apply.
@@ -112,119 +87,69 @@ if Actor B supports XYZ Option, see Section 1:XX.3.X.*
 > audit transport protocol, and the "STX" prefix marks alternatives for
 > secure transport protocol, as defined in the Record Audit Event
 > \[ITI-20\] transaction.
->
-> **Table 9.2-1: ATNA -- Actors and Options**
 
-| Actor                            | Option Name                      | Vol. & Section     |
-|----------------------------------|----------------------------------|--------------------|
-| Audit Record Repository (Note 4) | Retrieve Audit Message           | ITI TF-1: 9.2.3    |
-|                                  | Retrieve Syslog Message          | ITI TF-1: 9.2.4    |
-|                                  | ATX: FHIR Feed                   | ITI TF-1: 9.2.7.1  |
-|                                  | ATX: TLS Syslog                  | ITI TF-1: 9.2.7.2  |
-|                                  | ATX: UDP Syslog                  | ITI TF-1: 9.2.7.3  |
-| Audit Consumer                   | Retrieve Audit Message (Note 5)  | ITI TF-1: 9.2.3    |
-|                                  | Retrieve Syslog Message (Note 5) | ITI TF-1: 9.2.4    |
-| Audit Record Forwarder (Note 4)  | ATX: FHIR Feed                   | ITI TF-1: 9.2.7.1  |
-|                                  | ATX: TLS Syslog                  | ITI TF-1: 9.2.7.2  |
-|                                  | ATX: UDP Syslog                  | ITI TF-1: 9.2.7.3  |
-| "Secure Node (Note 1)            |                                  |                    |
-|  (Note 4)"                       | Radiology Audit Trail            | "RAD TF-1: 2.2.1   |
-|  RAD TF-3: 5.1"                  |                                  |                    |
-|                                  | …                                | …                  |
-|                                  | ATX: FHIR Feed                   | ITI TF-1: 9.2.7.1  |
-|                                  | ATX: TLS Syslog                  | ITI TF-1: 9.2.7.2  |
-|                                  | ATX: UDP Syslog                  | ITI TF-1: 9.2.7.3  |
-| "Secure Application (Note 1)     |                                  |                    |
-|  (Note 4)"                       | Radiology Audit Trail            | "RAD TF-1: 2.2.1   |
-|  RAD TF-3: 5.1"                  |                                  |                    |
+<p id ="tXX.2-1" class="tableTitle"><strong>Table 1:XX.2-1: ATNA - Actors and Options</strong></p>
 
->
-> Note 4: This actor shall support at least one of the "ATX" Options. If
-> a product's IHE Integration Statement does not declare one of these
-> options, the reader should assume that the product supports the TLS or
-> UDP Syslog Option.
->
-> Note 5: The Audit Consumer shall support at least one of the two
-> options defined.
+| Actor                            | Option Name                      | Vol. & Section    |
+|----------------------------------|----------------------------------|-------------------|
+| Audit Record Repository (Note 4) | Retrieve Audit Message           | ITI TF-1: 9.2.3   |
+|                                  | Retrieve Syslog Message          | ITI TF-1: 9.2.4   |
+|                                  | ATX: FHIR Feed                   | ITI TF-1: 9.2.7.1 |
+|                                  | ATX: TLS Syslog                  | ITI TF-1: 9.2.7.2 |
+|                                  | ATX: UDP Syslog                  | ITI TF-1: 9.2.7.3 |
+| Audit Consumer                   | Retrieve Audit Message (Note 5)  | ITI TF-1: 9.2.3   |
+|                                  | Retrieve Syslog Message (Note 5) | ITI TF-1: 9.2.4   |
+| Audit Record Forwarder (Note 4)  | ATX: FHIR Feed                   | ITI TF-1: 9.2.7.1 |
+|                                  | ATX: TLS Syslog                  | ITI TF-1: 9.2.7.2 |
+|                                  | ATX: UDP Syslog                  | ITI TF-1: 9.2.7.3 |
+| Secure Node (Note 1)             |                                  |                   |
+| (Note 4)                         | Radiology Audit Trail            | RAD TF-1: 2.2.1   |
+|                                  |                                  | RAD TF-3: 5.1     |
+|                                  | …                                | …                 |
+|                                  | ATX: FHIR Feed                   | ITI TF-1: 9.2.7.1 |
+|                                  | ATX: TLS Syslog                  | ITI TF-1: 9.2.7.2 |
+|                                  | ATX: UDP Syslog                  | ITI TF-1: 9.2.7.3 |
+| Secure Application (Note 1)      |                                  |                   |
+| (Note 4)                         | Radiology Audit Trail            | RAD TF-1: 2.2.1   |
+|                                  |                                  | RAD TF-3: 5.1     |
+{: .grid}
 
-###  9.2.3 Retrieve Audit Message Option
+> Note 4: This actor shall support at least one of the "ATX" Options. If a product's IHE Integration Statement does not declare one of these options, the reader should assume that the product supports the TLS or UDP Syslog Option.
 
-> The Retrieve Audit Message Option enables search requests for audit
-> records based upon message contents.
->
-> An Audit Consumer or Audit Record Repository that supports this option
-> shall implement the Retrieve ATNA Audit Event \[ITI-81\] transaction.
->
-> The \[ITI-81\] transaction is a RESTful search from an Audit Consumer
-> to an Audit Record Repository (ARR) using FHIR resources. The search
-> response will reflect the contents of the data storage at the time of
-> the search. IHE does not specify the criteria for message selection,
-> archival, retention interval, etc. These are set by local policy and
-> are often different for different Audit Record Repositories.
+> Note 5: The Audit Consumer shall support at least one of the two options defined.
 
-### 9.2.4 Retrieve Syslog Message Option
+###  1:XX.2.1 Retrieve Audit Message Option
 
-> The Retrieve Syslog Message Option enables search requests for syslog
-> messages based upon syslog metadata.
->
-> An Audit Consumer or Audit Record Repository that supports this option
-> shall implement the Retrieve Syslog Event \[ITI-82\] transaction.
->
-> The \[ITI-82\] transaction is a RESTful search operation that searches
-> syslog messages of any format or schema. The search request uses the
-> syslog metadata only.
+> The Retrieve Audit Message Option enables search requests for audit records based upon message contents.
+> An Audit Consumer or Audit Record Repository that supports this option shall implement the Retrieve ATNA Audit Event \[ITI-81\] transaction.
+> The \[ITI-81\] transaction is a RESTful search from an Audit Consumer to an Audit Record Repository (ARR) using FHIR resources. The search response will reflect the contents of the data storage at the time of the search. IHE does not specify the criteria for message selection, archival, retention interval, etc. These are set by local policy and are often different for different Audit Record Repositories.
 
-### 9.2.7 Audit Transport (ATX) Options
+### 1:XX.2.2 Retrieve Syslog Message Option
 
-> At least one of these options shall be supported. Many can be
-> declared, for which the productmust then be configurable to enable each of the supported Audit Transport Options.
+> The Retrieve Syslog Message Option enables search requests for syslog messages based upon syslog metadata.
+> An Audit Consumer or Audit Record Repository that supports this option shall implement the Retrieve Syslog Event \[ITI-82\] transaction.
+> The \[ITI-82\] transaction is a RESTful search operation that searches syslog messages of any format or schema. The search request uses the syslog metadata only.
 
-###  9.2.7.1 ATX: FHIR Feed Option
+### 1:XX.2.3 Audit Transport (ATX) Options
 
-> The ATX: FHIR Feed Option enables sending ATNA audit records using
-> RESTful
->
-> An Audit Record Repository that supports this option shall
-> implement the two RESTful interactions defined in the
-> Record Audit Event \[ITI-20\] transaction. See ITI TF-2:
-> 3.20.4.2 (Send Audit Resource) and 3.20.4.4 (Send Audit
-> Bundle).
->
-> A Secure Node, Secure Application or Audit Record Forwarder that
-> supports this option shall at least support one of the
-> two RESTful interactions defined in the Record Audit
-> Event \[ITI-20\] transaction. See ITI TF-2: 3.20.4.2 (Send Audit
-> Resource) and 3.20.4.4 (Send Audit
-> Bundle).
->
-> ### 9.2.7.2 ATX: TLS Syslog Option
->
+> At least one of these options shall be supported. Many can be declared, for which the productmust then be configurable to enable each of the supported Audit Transport Options.
 
-> **Table 9.3-1: ATNA - Required Actor Groupings**
+#### 1:XX.2.3.1 ATX: FHIR Feed Option
 
-+--------------+----------------------------+---------+---------------+
-| > **ATNA     | > **Actor to be grouped    | >       | > **Content   |
-| > Actor**    | > with**                   |  **Refe | > Bindings    |
-|              |                            | rence** | > Reference** |
-+==============+============================+=========+===============+
-| > Audit      | > Consistent Time / Time   | > ITI   | > N/A         |
-| > Record     | > Client                   | > TF-1: |               |
-| > Repository |                            | > 7     |               |
-+--------------+----------------------------+---------+---------------+
-|              | > ATNA / Secure Node or    | > ITI   | > N/A         |
-|              | > Secure Application       | > TF-1: |               |
-|              |                            | > 9     |               |
-+--------------+----------------------------+---------+---------------+
-| > **[Audit   | > **[ATNA / Secure Node or | >       | > **[N/A]{    |
-| >            | > Secure                   |  **[ITI | .underline}** |
-|  Consumer]{. | >                          | > TF-1: |               |
-| underline}** | Application]{.underline}** | > 9]    |               |
-|              |                            | {.under |               |
-|              |                            | line}** |               |
-+--------------+----------------------------+---------+---------------+
-| > ...        |                            |         |               |
-+--------------+----------------------------+---------+---------------+
+> The ATX: FHIR Feed Option enables sending ATNA audit records using RESTful capabilities and FHIR resources.
+> An Audit Record Repository that supports this option shall implement the two RESTful interactions defined in the Record Audit Event \[ITI-20\] transaction. See ITI TF-2: 3.20.4.2 (Send Audit Resource) and 3.20.4.4 (Send Audit Bundle).
+> A Secure Node, Secure Application or Audit Record Forwarder that supports this option shall at least support one of the two RESTful interactions defined in the Record Audit Event \[ITI-20\] transaction. See ITI TF-2: 3.20.4.2 (Send Audit Resource) and 3.20.4.4 (Send Audit Bundle).
 
+> #### 1:XX.2.3.2 ATX: TLS Syslog Option
+
+<p id ="1:XX.2.3.2-1" class="tableTitle"><strong>Table 1:XX.2.3.2-1: ATNA - Required Actor Groupings</strong></p>
+
+| ATNA Actor              | Actor to be grouped with               | Reference   | Content Bindings Reference |
+|-------------------------|----------------------------------------|-------------|----------------------------|
+| Audit Record Repository | Consistent Time/Time Client            | ITI TF-1: 7 | N/A                        |
+|                         | ATNA/Secure Node or Secure Application | ITI TF-1: 9 | N/A                        |
+| Audit Consumer          | ATNA/Secure Node or Secure Application | ITI TF-1: 9 | N/A                        |
+{: .grid}
 
 <a name="client"> </a>
 
