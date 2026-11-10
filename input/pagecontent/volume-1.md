@@ -37,7 +37,6 @@ The figure below shows the actors directly involved in the RESTfulAtna Profile a
 |                         | Record Audit Event [ITI-20]        | R           | ITI TF-2: 3.20 |
 | Secure Application      | Authenticate Node [ITI-19]         | R           | ITI TF-2: 3.19 |
 |                         | Record Audit Event [ITI-20]        | R           | ITI TF-2: 3.20 |
-{: .grid}
 
 ### 1:XX.1.1 Actors
 The actors in this profile are described in more detail in the sections below.
