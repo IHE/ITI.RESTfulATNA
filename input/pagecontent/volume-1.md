@@ -14,8 +14,6 @@ This section defines the actors and transactions in this implementation guide.
   * [Record Audit Event [ITI-20]](ITI-20.html)
   * [Retrieve ATNA Audit Event [ITI-81]](ITI-81.html)
   * [Retrieve Syslog Event [ITI-82]](ITI-82.html)
-  * [Authenticate Node [ITI-19]](ITI-19.html)
-
 
 The figure below shows the actors directly involved in the RESTfulAtna Profile and the relevant transactions between them.
 
@@ -77,6 +75,8 @@ The actors in this profile are described in more detail in the sections below.
 > ATNA audit records using Syslog metadata and ATNA audit record
 > content. Subsequent processing of the query result is not defined in this profile.
 
+<a name="actor-options"> </a>
+
 ## 1:XX.2 Actor Options
 
 > Options that may be selected for this Integration Profile are listed
@@ -102,16 +102,13 @@ The actors in this profile are described in more detail in the sections below.
 | Audit Record Forwarder (Note 4)  | ATX: FHIR Feed                   | ITI TF-1: 9.2.7.1 |
 |                                  | ATX: TLS Syslog                  | ITI TF-1: 9.2.7.2 |
 |                                  | ATX: UDP Syslog                  | ITI TF-1: 9.2.7.3 |
-| Secure Node (Note 1)             |                                  |                   |
-| (Note 4)                         | Radiology Audit Trail            | RAD TF-1: 2.2.1   |
-|                                  |                                  | RAD TF-3: 5.1     |
-|                                  | …                                | …                 |
+| Secure Node (Note 1)             | Radiology Audit Trail            | RAD TF-1: 2.2.1   |
+| (Note 4)                         |                                  | RAD TF-3: 5.1     |
 |                                  | ATX: FHIR Feed                   | ITI TF-1: 9.2.7.1 |
 |                                  | ATX: TLS Syslog                  | ITI TF-1: 9.2.7.2 |
 |                                  | ATX: UDP Syslog                  | ITI TF-1: 9.2.7.3 |
-| Secure Application (Note 1)      |                                  |                   |
-| (Note 4)                         | Radiology Audit Trail            | RAD TF-1: 2.2.1   |
-|                                  |                                  | RAD TF-3: 5.1     |
+| Secure Application (Note 1)      | Radiology Audit Trail            | RAD TF-1: 2.2.1   |
+| (Note 4)                         |                                  | RAD TF-3: 5.1     |
 {: .grid}
 
 > Note 4: This actor shall support at least one of the "ATX" Options. If a product's IHE Integration Statement does not declare one of these options, the reader should assume that the product supports the TLS or UDP Syslog Option.
@@ -151,388 +148,13 @@ The actors in this profile are described in more detail in the sections below.
 | Audit Consumer          | ATNA/Secure Node or Secure Application | ITI TF-1: 9 | N/A                        |
 {: .grid}
 
-<a name="client"> </a>
+<a name="use-cases"> </a>
 
-#### 1:XX.1.1.1 Client
-
-The Client queries for blah meeting certain criteria and may retrieve selected blah.
-
-FHIR Capability Statement for [Client](CapabilityStatement-IHE.ToDo.client.html)
-
-<a name="server"> </a>
-
-#### 1:XX.1.1.2 Server
-
-The Sever processes query request from the Client actor.
-
-FHIR Capability Statement for [Server](CapabilityStatement-IHE.ToDo.server.html)
-
-### 1:XX.1.2 Transaction Descriptions
-
-The transactions in this profile are summarized in the sections below.
-
-#### 1:XX.1.2.1 ToDo do transaction
-
-This transaction is used to **do things**
-
-For more details see the detailed [transaction description](domain-YY.html)
-
-<a name="actor-options"> </a>
-
-## 1:9.2 ATNA Actor Options
-
-Options that may be selected for this Integration Profile are listed in the Table 9.2-1 along with the actors to which they apply. Dependencies between options when applicable are specified in notes.
-Note: The "ATX" prefix in option names below marks alternatives for audit transport protocol, and the "STX" prefix marks alternatives for secure transport protocol, as defined in the Record Audit Event [ITI-20] transaction.
-
-<p id ="t9.2-1" class="tableTitle"><strong>Table 1:9.2-1: ATNA Actor Options</strong></p>
-
-**Table 9.2-1: ATNA – Actors and Options**
-
-| Actor                            | Option Name                      | Vol. & Section     |
-|----------------------------------|----------------------------------|--------------------|
-| Audit Record Repository (Note 4) | Retrieve Audit Message           | ITI TF-1: 9.2.3    |
-|                                  | Retrieve Syslog Message          | ITI TF-1: 9.2.4    |
-|                                  | ATX: FHIR Feed                   | ITI TF-1: 9.2.7.1  |
-|                                  | ATX: TLS Syslog                  | ITI TF-1: 9.2.7.2  |
-|                                  | ATX: UDP Syslog                  | ITI TF-1: 9.2.7.3  |
-| Audit Consumer                   | Retrieve Audit Message (Note 5)  | ITI TF-1: 9.2.3    |
-|                                  | Retrieve Syslog Message (Note 5) | ITI TF-1: 9.2.4    |
-| Audit Record Forwarder (Note 4)  | ATX: FHIR Feed                   | ITI TF-1: 9.2.7.1  |
-|                                  | ATX: TLS Syslog                  | ITI TF-1: 9.2.7.2  |
-
-
-{: .grid}
-…
-Note 4: This actor shall support at least one of the “ATX” Options. If a product’s IHE Integration Statement does not declare one of these options, the reader should assume that the product supports the TLS or UDP Syslog Option.
-**Note 5: The Audit Consumer shall support at least one of the two options defined.**
-
-### 1:9.2.3 Retrieve Audit Message Option
-
-The Retrieve Audit Message Option enables search requests for audit records based upon message contents.
-An Audit Consumer or Audit Record Repository that supports this option shall implement the Retrieve ATNA Audit Event [ITI-81] transaction.
-The [ITI-81] transaction is a RESTful search from an Audit Consumer to an Audit Record Repository (ARR) using FHIR resources. The search response will reflect the contents of the data storage at the time of the search. IHE does not specify the criteria for message selection, archival, retention interval, etc. These are set by local policy and are often different for different Audit Record Repositories.
-
-### 1:9.2.4 Retrieve Syslog Message Option
-
-The Retrieve Syslog Message Option enables search requests for syslog messages based upon syslog metadata.
-An Audit Consumer or Audit Record Repository that supports this option shall implement the Retrieve Syslog Event [ITI-82] transaction.
-The [ITI-82] transaction is a RESTful search operation that searches syslog messages of any format or schema. The search request uses the syslog metadata only.
-
-### 1:9.2.7 Audit Transport (ATX) Options
-
-At least one of these options shall be supported. Many can be declared, for which the product must then be configurable to enable each of the supported Audit Transport Options.
-
-#### 1: 9.2.7.1 ATX: FHIR Feed Option
-
-**The ATX: FHIR Feed Option enables sending ATNA audit records using RESTful capabilities and FHIR resources.
-An Audit Record Repository that supports this option shall implement the two RESTful interactions defined in the Record Audit Event [ITI-20] transaction. See ITI TF-2: 3.20.4.2 (Send Audit Resource) and 3.20.4.4 (Send Audit Bundle).
-A Secure Node, Secure Application or Audit Record Forwarder that supports this option shall at least support one of the two RESTful interactions defined in the Record Audit Event [ITI-20] transaction. See ITI TF-2: 3.20.4.2 (Send Audit Resource) and 3.20.4.4 (Send Audit Bundle).**
-
-#### 1: 9.2.7.2 ATX: TLS Syslog Option
-
-...
-<p id ="t9.2-1" class="tableTitle"><strong>Table 1:9.3-1: ATNA - Required Actor Groupings </strong></p>
-
-**Table 9.3-1: ATNA – ATNA - Required Actor Groupings**
-
-| ATNA Actor              | Actor to be grouped with                 | Reference   | Content Bindings Reference  |
-|-------------------------|------------------------------------------|-------------|-----------------------------|
-| Audit Record Repository | Consistent Time / Time Client            | ITI TF-1: 7 | N/A                         |
-|                         | ATNA / Secure Node or Secure Application | ITI TF-1: 9 | N/A                         |
-| Audit Consumer          | ATNA / Secure Node or Secure Application | ITI TF-1: 9 | N/A                         |
-| …                       |                                          |             |          
-
-
-{: .grid}
-<a name="required-groupings"> </a>
-
-## 1:XX.3 ToDo Required Actor Groupings
-
-*Describe any requirements for actors in this profile to be grouped
-with other actors.*
-
-*This section specifies all REQUIRED Actor Groupings (although
-"required" sometimes allows for a selection of one of several). To
-SUGGEST other profile groupings or helpful references for other profiles
-to consider, use Section XX.6 Cross Profile Considerations. Use Section
-X.5 for security profile recommendations.*
-
-An actor from this profile (Column 1) shall implement all of the
-required transactions and/or content modules in this profile ***in
-addition to*** ***<u>all</u>*** of the requirements for the grouped
-actor (Column 2) (Column 3 in alternative 2).
-
-If this is a content profile, and actors from this profile are grouped
-with actors from a workflow or transport profile, the Reference column
-references any specifications for mapping data from the content module
-into data elements from the workflow or transport transactions.
-
-In some cases, required groupings are defined as at least one of an
-enumerated set of possible actors; this is designated by merging column
-one into a single cell spanning multiple potential grouped actors. Notes
-are used to highlight this situation.
-
-Section XX.5 describes some optional groupings that may be of interest
-for security considerations and Section XX.6 describes some optional
-groupings in other related profiles.
-
-Two alternatives for Table 1:XX.3-1 are presented below.
-
-- If there are no required groupings for any actor in this profile,
-    use alternative 1 as a template.
-- If an actor in this profile (with no option), has a required
-    grouping, use alternative 1.
-- If any required grouping is associated with an actor/option
-    combination in this profile, use alternative 2.
-
-alternative 1 Table 1:XX.3-1: Profile Name - Required Actor
-Groupings
-
-All actors from this profile should be listed in Column 1, even if
-none of the actors has a required groupings. If no required grouping
-exists, "None" should be indicated in Column 2. If an actor in a content
-profile is required to be grouped with an actor in a transport or
-workflow profile, it will be listed **with at least one** required
-grouping. Do not use "XD\*" as an actor name.
-
-In some cases, required groupings are defined as at least one of an
-enumerated set of possible actors; to designate this, create a row for
-each potential actor grouping and merge column one to form a single cell
-containing the profile actor which should be grouped with at least one
-of the actors in the spanned rows. In addition, a note should be
-included to explain the enumerated set. See example below showing
-Document Consumer needing to be grouped with at least one of XDS.b
-Document Consumer, XDR Document Recipient or XDM Portable Media
-Importer
-
-The author should pay special consideration to security profiles in
-this grouping section. Consideration should be given to Consistent Time
-(CT) Client, ATNA Secure Node or Secure Application, as well as other
-profiles. For the sake of clarity and completeness, even if this table
-begins to become long, a line should be added for each actor for each of
-the required grouping for security. Also see the ITI document titled
-'Cookbook: Preparing the IHE Profile Security Section' at
-<http://ihe.net/Technical_Frameworks/#IT> for a list of suggested IT and
-security groupings.
-
-<p id ="tXX.3-1" class="tableTitle"><strong>Table 1:XX.3-1: Actor Groupings</strong></p>
-
-<table border="1" borderspacing="0" style='border: 1px solid black; border-collapse: collapse'>
-<thead>
-<tr class="header">
-<th>this Profile Acronym Actor</th>
-<th>Actor(s) to be grouped with</th>
-<th>Reference</th>
-<th>Content Bindings Reference</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Actor A</td>
-<td><p><em>external Domain Acronym or blank</em></p>
-<p><em>profile acronym/Actor</em></p>
-<p><em>e.g., ITI CT / Time Client</em></p></td>
-<td><p><em>TF Reference; typically from Vol 1</em></p>
-<p><em>e.g., ITI-TF-1: 7.1</em></p></td>
-<td>--</td>
-</tr>
-<tr class="even">
-<td>Actor B</td>
-<td>None</td>
-<td>--</td>
-<td>--</td>
-</tr>
-<tr class="odd">
-<td><p>Actor C</p>
-<p><em>In this example, Actor C shall be grouped with all three actors listed in column 2</em></p></td>
-<td><p><em>external Domain Acronym or blank</em></p>
-<p><em>profile acronym/Actor</em></p></td>
-<td>--</td>
-<td>See Note 1</td>
-</tr>
-<tr class="even">
-<td></td>
-<td><em>external Domain Acronym or blank profile acronym/Actor</em></td>
-<td>--</td>
-<td>See Note 1</td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p><em>external Domain Acronym or blank</em></p>
-<p><em>profile acronym/Actor</em></p></td>
-<td>--</td>
-<td>See Note 1</td>
-</tr>
-<tr class="even">
-<td><p>Actor D <em>(See note 1)</em></p>
-<p><em>In this example, the note is used to indicate that the Actor D shall be grouped with one or more of the two actors of the two actors in column 2.</em></p></td>
-<td><p><em>external Domain Acronym or blank</em></p>
-<p><em>profile acronym/Actor</em></p></td>
-<td>--</td>
-<td>See Note 1</td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p><em>external Domain Acronym or blank</em></p>
-<p><em>profile acronym/Actor</em></p></td>
-<td>--</td>
-<td>See Note 1</td>
-</tr>
-<tr class="even">
-<td><p>Actor E</p>
-<p><em>In rare cases, the actor to be grouped with must implement an option. An example is in column 2.)</em></p></td>
-<td><p><em>external Domain Acronym or blank</em></p>
-<p><em>profile acronym Actor</em></p>
-<p><em>e.g., ITI RFD Form Filler with the Archive Form Option</em></p></td>
-<td><p><em>TF Reference to the Option definition; typically from Vol 1</em></p>
-<p><em>(e.g., ITI TF-1: 17.3.11)</em></p></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><em>e.g., Content Consumer (See Note 1)</em></td>
-<td><em>ITI XDS.b / Document Consumer</em></td>
-<td><em>ITI TF-1: 10.1</em></td>
-<td><em>PCC TF-2:4.1 (See Note 2)</em></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><em>ITI XDR / Document Recipient</em></td>
-<td><em>ITI TF-1: 15.1</em></td>
-<td><em>PCC TF-2:4.1 (See Note 2)</em></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><em>ITI XDM / Portable Media Importer</em></td>
-<td><em>ITI TF-1: 16.1</em></td>
-<td><em>PCC TF-2:4.1 (See Note 2)</em></td>
-</tr>
-<tr class="even">
-<td><em>e.g., Content Consumer</em></td>
-<td><em>ITI CT / Time Client</em></td>
-<td><em>ITI TF-1: 7.1</em></td>
-<td>--</td>
-</tr>
-</tbody>
-</table>
-
-Note 1: *This is a short note. It may be used to describe situations
-where an actor from this profile may be grouped with one of several
-other profiles/actors.*
-
-Note 2: *A note could also be used to explain why the grouping is
-required, if that is still not clear from the text above.*
-
-alternative 2 Table 1:XX.3-1: this Profile Acronym Profile
-
-- Required Actor Groupings
-
-All actors from this profile should be listed in Column 1. If no
-required grouping exists, "None" should be indicated in Column 3.
-
-Guidance on using the "Grouping Condition" column:
-
-- If an actor has no required grouping, Column 2 should contain "--".
-    See Actor A below.
-- If an actor has a required grouping that is not associated with a
-    profile option (i.e., it has no condition), column 2 should contain
-    "Required". See Actor B below.
-- Sometimes an option requires that an actor in this profile be
-    grouped with an actor in another profile. That condition is
-    specified in Column 2. See Actor C below.
-
-<p id ="tXX.3-1" class="tableTitle"><strong>Table 1:XX.3-1: Actor Groupings</strong></p>
-
-<table border="1" borderspacing="0" style='border: 1px solid black; border-collapse: collapse'>
-<tbody>
-<tr class="odd">
-<td>this Profile Acronym Actor</td>
-<td>Grouping Condition</td>
-<td>Actor(s) to be grouped with</td>
-<td>Reference</td>
-</tr>
-<tr class="even">
-<td>Actor A</td>
-<td>--</td>
-<td>None</td>
-<td>--</td>
-</tr>
-<tr class="odd">
-<td>Actor B</td>
-<td>Required</td>
-<td><p><em>external Domain Acronym or blank profile acronym/Actor</em></p>
-<p><em>e.g., ITI CT / Time Client</em></p></td>
-<td><p><em>TF Reference; typically from Vol 1</em></p>
-<p><em>(e.g., ITI TF-1: 7.1)</em></p></td>
-</tr>
-<tr class="even">
-<td>Actor C</td>
-<td>With the <em>Option name in this profile</em> Option</td>
-<td><em>external Domain Acronym or blank profile acronym/Actor</em></td>
-<td><em>Where the Option is defined in this profile Section XX.3 z</em></td>
-</tr>
-<tr class="odd">
-<td><p>Actor D</p>
-<p><em>if an actor has both required and conditional groupings, list the Required grouping first</em></p></td>
-<td>Required</td>
-<td><em>external Domain Acronym or blank profile acronym/Actor</em></td>
-<td><em>TF Reference; typically from Vol 1</em></td>
-</tr>
-<tr class="even">
-<td></td>
-<td>If the <em>Option name in this profile</em> Option is supported.</td>
-<td><em>external Domain Acronym or blank profile acronym/Actor</em></td>
-<td><em>TF Reference; typically from Vol 1</em></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>If the <em>other Option name in this profile</em> Option is supported.</td>
-<td><em>external Domain Acronym or blank profile acronym/Actor</em></td>
-<td><em>TF Reference; typically from Vol 1</em></td>
-</tr>
-<tr class="even">
-<td><p>Actor E</p>
-<p><em>(In rare cases, the actor to be grouped with must implement an option, an example is in column 3)</em></p></td>
-<td>Required</td>
-<td><p><em>external Domain Acronym or blank profile acronym/Actor</em> with the <em>option name</em></p>
-<p><em>e.g. ITI RFD Form Filler with the Archive Form Option</em></p></td>
-<td><p><em>TF Reference to the Option definition; typically from Vol 1</em></p>
-<p><em>(eg ITI TF-1:17.3.11)</em></p></td>
-</tr>
-</tbody>
-</table>
-
-<a name="overview"> </a>
-
-## 1:XX.4 ToDo Overview
-
-This section shows how the transactions/content modules of the profile
-are combined to address the use cases.
-
-Use cases are informative, not normative, and "SHALL" language is
-not allowed in use cases.
-
-<div>
-<img src="anImage.png" caption="Figure 1:XX.4.1: Diagrammed in an image" width="70%" >
-</div>
-
-### 1:XX.4.1 Concepts
-
-If needed, this section provides an overview of the concepts that
-provide necessary background for understanding the profile. If not
-needed, state "Not applicable." For an example of why/how this section
-may be needed, please see ITI Cross Enterprise Workflow (XDW).
-
-It may be useful in this section but is not necessary, to provide a
-short list of the use cases described below and explain why they are
-different.
-
-### 1:9.4.2 Use Cases
-> Sections 9.4.2.1, 9.4.2.2, and
-> 9.4.2.3 describe three typical process flows for situations in which authorized users, unauthorized
-> users, and unauthorized nodes attempt to gain access to protected health information (PHI).
+## 1:XX.3 Use Cases
+> Sections 9.4.2.1, 9.4.2.2, and 9.4.2.3 describe three typical process flows for situations in which authorized users, unauthorized users, and unauthorized nodes attempt to gain access to protected health information (PHI).
 > Sections 9.4.2.4 and 9.4.2.5 describe use cases related to the retrieve capabilities of the Audit Record Repository.
 
-#### 1:9.4.2.4 Clinician Personal History of Study views process flow
+### 1:XX.3.1 Clinician Personal History of Study views Process Flow
 A clinician wants to gather the history of studies she has accessed during her clinical activity using different devices (EHR system, WebApp, Mobile device). This information allows the clinician to:
 <ul>
   <li>Discover unexpected accesses made to her devices;</li>
@@ -540,82 +162,35 @@ A clinician wants to gather the history of studies she has accessed during her c
   <li>Consolidate on a unique device, a complete picture of complex clinical cases.</li>
 </ul>
 
-##### 1:9.4.2.4.1 Clinician Personal History of Study views use-case
+#### 1:XX.3.1.1 Clinician Personal History of Study views use-case
 
 Dr. Luisa White usually performs her clinical activity using multiple devices. Mr. Brown is a patient who is home-monitored. Dr. White collects results of home visits using a tablet, and she monthly performs a detailed visit with Mr. Brown in her office. During home visits, Dr. White analyzes tele-monitoring data collected by some devices (scales, blood pressure devices, etc.) and adjusts drugs therapies in accordance with those data. When Dr. White accesses Mr.
 Brown’s data via these devices, each access is tracked as an ATNA audit event. Both document views and document creation are logged, tracking the user that performed the transaction (e.g., using an XUA identity assertion).
 Monthly visit, Dr. White wants to consolidate within her EHR system the whole history of data analyzed and collected using multiple devices. This process allows Dr. White to keep track of her clinical activities and revaluate clinical decisions made in the past.
 To facilitate that, the EHR system can query for audit events related to transactions performed by Dr. White during a specific period.
 
-![](C:\Users\dbabato_consorzioars\Documents\ITI.RESTfulATNA\input\images\Untitled4.png)
+<figure>
+  <img src="Untitled4.png" alt="Clinician Personal History of Study views Process Flow" style="width:100%"/>
+  <figcaption><b>1:XX.3.1.1-1: Clinician Personal History of Study views Process Flow</b></figcaption>
+</figure>
 
-##### 1:XX.4.2.1.2 simple name Process Flow
+### 1:XX.3.2 Patient access to his audit records Process Flow
+A patient wants to discover the list of people that accessed a specific study. Using those data, the patient discovers if privacy policies were correctly applied.
 
-Diagram and describe the process flow(s) covered by this profile in
-order to satisfy the use cases. Demonstrate how the profile transactions
-are combined/sequenced. To provide context and demonstrate how the
-profile interacts with other profiles, feel free to include transactions
-and events that are "external" to this profile (using appropriate
-notation.)
+<figure>
+  <img src="usecase2.svg" alt="Patient access to his audit records Process Flow"/>
+  <figcaption><b>1:XX.3.2-1: Patient access to his audit records Process Flow</b></figcaption>
+</figure>
 
-The set of process flows will typically be exemplary, not exhaustive
-(i.e., it will address all the use cases, but will not show all possible
-combinations of actors, or all possible sequencing of transactions).
+#### 1:XX.3.2.1 Patient access to his audit records use case
+During a hospitalization, Mr. Brown was asked to sign a consent to share documents produced during that clinical event with a research facility, so that researchers could analyze the efficiency of the applied treatment. Mr. Brown does not provide this consent because he is worried that his data could be used for marketing purposes. A nurse collects the patient’s consent document, but forgets to record his decision in the HIS system.
+Access to all the data collected during Mr. Brown’s hospitalization by clinicians involved in his care are tracked as “Export” or “Disclosure events for a “Treatment” purpose. An access to the data by the research facility would be tracked as “Export” or “Disclosure” events for a “Research” purpose. Mr. Brown’s healthcare facility provides on-line access to health information. Mr. Brown can use a web app to access this data (shared using XDS or XCA infrastructure). The web app can also display audit information related to those documents/studies. Audit records are collected by many ATNA Audit Record Repositories, but local policies or system configurations allows the web app to identify the right Audit Record Repository system that stores relevant records. Using the document and study identifiers, the web app can query the appropriate ATNA Audit Record Repository.
+The web app reports to Mr. Brown that his documents/studies had been disclosed or exported for both treatment and research purposes.
 
-If there are detailed behavioral rules that apply to a specific process
-flow or multiple process flows, an appendix may be added as needed.
-
-The roles at the top of the swimlane diagram should correspond to
-actor names, include the profile acronym:actor name if referencing an
-actor from a different profile.
-
-Modify the following "Swimlane Diagram". You can use plantuml or mermaid. see details on [using mermaid in the IG publisher](https://build.fhir.org/ig/FHIR/ig-guidance/diagrams-mermaid.html). Mermaid [user guide online](https://mermaid.js.org/intro/getting-started.html).  Plantuml seems more stable, and does support clickable links on artifacts. Goto [plantuml.com](http://plantuml.com) for an online tool to draft plantuml files.
-
-```mermaid
-sequenceDiagram
-    participant Client
-    participant Server
-    activate Client
-    activate Server
-    Client ->> Server: 1. Go Query Domain-YY
-    Server -->> Client: 2. Go Response Domain-YY
-    deactivate Server
-    deactivate Client
-    activate Client
-    Client ->> Client: process response
-    deactivate Client
-```
-
-**Figure 1:XX.4.2.2-1: Basic Process Flow in Profile Acronym Profile**:
-
-If process flow "swimlane" diagrams require additional explanation
-to clarify conditional flows, or flow variations need to be described
-where alternate systems may be playing different actor roles, document
-those conditional flows here.
-
-Delete the material below if this is a workflow or transport
-profile. Delete the material above if this profile is a content module
-only profile.
-
-**Pre-conditions**:
-
-Very briefly (typically one sentence) describe the conditions or
-timing when this content module would be used.
-
-**Main Flow**:
-
-Typically in an enumerated list, describe the clinical workflow
-when, where, and how this content module would be used.
-
-**Post-conditions:**
-
-Very briefly (typically one sentence) describe the state of the
-clinical scenario after this content module has been created including
-examples of potential next steps.
 
 <a name="security-considerations"> </a>
 
-## 1:XX.5 ToDo Security Considerations
+## 1:XX.4 ToDo Security Considerations
 
 See ITI TF-2: [Appendix Z.8 "Mobile Security Considerations"](https://profiles.ihe.net/ITI/TF/Volume2/ch-Z.html#z.8-mobile-security-considerations)
 
@@ -701,27 +276,3 @@ Authors MUST describe:
 This section also include specific considerations regarding Digital Signatures, Provenance, Audit Logging, and De-Identification.
 
 Where audit logging is specified, a StructureDefinition profile(s) should be included, and Examples of those logs might be included.
-
-<a name="other-grouping"> </a>
-
-## 1:XX.6 ToDo Cross-Profile Considerations
-
-This section is informative, not normative. It is intended to put
-this profile in context with other profiles. Any required groupings
-should have already been described above. Brief descriptions can go
-directly into this section; lengthy descriptions should go into an
-appendix. Examples of this material include ITI Cross Community Access
-(XCA) Grouping Rules (Section 18.2.3), the Radiology associated profiles
-listed at wiki.ihe.net, or ITI Volume 1 Appendix E "Cross Profile
-Considerations", and the "See Also" sections Radiology Profile
-descriptions on the wiki such as
-<http://wiki.ihe.net/index.php/Scheduled_Workflow#See_Also>. If this
-section is left blank, add "Not applicable."
-
-Consider using a format such as the following:
-
-other profile acronym - other profile name
-
-A other profile actor name in other profile name might
-be grouped with a this profile actor name to describe
-benefit/what is accomplished by grouping.

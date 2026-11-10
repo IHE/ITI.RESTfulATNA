@@ -1,0 +1,93 @@
+@startuml
+skinparam svgDimensionStyle false
+box "WebApp" #White
+    participant "Audit consumer" as AC
+end box
+
+participant "HIS" as HIS
+participant "ATNA ARR" as ARR1
+participant "XDS Document Repository" as Repository
+participant "XDS Document Registry" as Registry
+participant "ATNA ARR" as ARR2
+participant "Research System" as RS
+
+' --- Primo Blocco Loop ---
+loop for any doc of interest
+    HIS -> Registry: 1: [ITI-18] Registry Store Query
+    activate HIS
+    activate Registry
+    
+    Registry -> ARR2: 2: [ITI-20] Record Audit Event
+    activate ARR2
+    note right of Registry
+        Query for
+        Treatment
+    end note
+    deactivate ARR2
+    deactivate Registry
+    
+    HIS -> Repository: 3: [ITI-43] Retrieve Document Set
+    activate Repository
+    
+    Repository -> ARR1: 4: [ITI-20] Record Audit Event
+    activate ARR1
+    note right of Repository
+        Export for
+        Treatment
+    end note
+    deactivate ARR1
+    deactivate Repository
+    deactivate HIS
+end
+
+' --- Secondo Blocco Loop ---
+loop for any doc of interest for the research
+    RS -> Registry: 5: [ITI-18] Registry Store Query
+    activate RS
+    activate Registry
+    
+    Registry -> ARR2: 6: [ITI-20] Record Audit Event
+    activate ARR2
+    note right of Registry
+        Query for
+        Research
+    end note
+    deactivate ARR2
+    deactivate Registry
+    
+    note over HIS
+        Export for
+        Research
+    end note
+    
+    RS -> Repository: 7: [ITI-43] Retrieve Document Set
+    activate Repository
+    
+    Repository -> ARR1: 8: [ITI-20] Record Audit Event
+    activate ARR1
+    deactivate ARR1
+    deactivate Repository
+    deactivate RS
+end
+
+' --- Flusso Finale ---
+AC -> Registry: 9: [ITI-18] Registry Stored Query
+activate AC
+activate Registry
+note over Repository
+    collect documents/studies
+    identifiers
+end note
+deactivate Registry
+
+AC -> ARR1: 10: [ITI-81] Retreive ATNA Audit Event
+activate ARR1
+note over ARR1, AC
+Query for audit records related to specific objects:
+(participantObjectId = document/study identifiers)
+end note
+deactivate ARR1
+
+AC -> AC: 11: Reporting to the user
+deactivate AC
+@enduml

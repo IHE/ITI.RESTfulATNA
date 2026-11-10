@@ -64,10 +64,10 @@ parameters:  # see https://confluence.hl7.org/display/FHIR/Implementation+Guide+
 pages:
 # itemize here each narrative page. Include assigned section numbers when appropriate. The order they appear here is the order they will appear in the TOC and on the next/prev navigation.
   index.md:
-    title: ToDo Home
+    title: RESTful ATNA Supplement Home
     generation: markdown
   volume-1.md:
-    title: 1:XX ToDo Volume 1
+    title: 1:XX Volume 1
     generation: markdown
   ITI-20.md:
     title: 2:3.ITI-20 Record Audit Event [ITI-20]
@@ -77,9 +77,6 @@ pages:
     generation: markdown
   ITI-82.md:
     title: 2:3.ITI-82 Retrieve Syslog Event [ITI-82]
-    generation: markdown
-  domain-ZZ.md:
-    title: 3:?.ZZ Content one [Domain-ZZ]
     generation: markdown
   testplan.md:
     title: "Test Plan"
@@ -100,16 +97,12 @@ menu:
     Introduction: volume-1.html
     Actors and Transactions: volume-1.html#actors-and-transactions
     Actor Options: volume-1.html#actor-options
-    Required Actor Groupings: volume-1.html#required-groupings
-    Overview: volume-1.html#overview
+    Use Cases: volume-1.html#use-cases  
     Security Considerations: volume-1.html#security-considerations
-    Cross-Profile Considerations: volume-1.html#other-grouping
   Volume 2:
     "Record Audit Event [ITI-20]": ITI-20.html
     "Retrieve ATNA Audit Event [ITI-81]": ITI-81.html
     "Retrieve Syslog Event [ITI-82]": ITI-82.html
-  Volume 3:
-    "Content one [Domain-ZZ]": domain-ZZ.html
   Artifacts: artifacts.html
   Other:
     Changes to Other IHE Specifications: other.html
