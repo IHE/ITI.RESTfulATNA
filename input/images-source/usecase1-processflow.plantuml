@@ -1,12 +1,78 @@
 @startuml
 skinparam svgDimensionStyle false
-hide footbox
-participant "Client" as Client
-participant "Server" as Server
-activate "Client"
-"Client" -> "Server" : 1. Go Query [[domain-YY.html Domain-YY]]
-activate "Server"
-"Server" --> "Client" : 2. Go Response [[domain-YY.html Domain-YY]]
-deactivate "Client"
-deactivate "Server"
+box "Device 2 (EHR)" #White
+    participant "Document Consumer" as DC
+    participant "Audit Consumer" as AC
+end box
+
+box "Device 1 (mobile)" #White
+    participant "XDS Document Source" as XDS_Src
+    participant "XDS Document Consumer" as XDS_Cons
+end box
+
+participant "XDS Document Repository" as XDS_Rep
+participant "XDS Document Registry" as XDS_Reg
+participant "ATNA ARR" as ARR
+
+' --- Primo Blocco Loop ---
+loop for each doc of interest
+    XDS_Cons -> XDS_Reg: 1: [ITI-18] Registry Stored Query + Identity Assertion (user=Dr.White)
+    activate XDS_Cons
+    activate XDS_Reg
+    
+    XDS_Reg -> ARR: 2: [ITI-20] Record Audit Event (@user=Dr.White)
+    activate ARR
+    deactivate ARR
+    deactivate XDS_Reg
+    
+    XDS_Cons -> XDS_Rep: 3: [ITI-43] Retrieve Document Set + Identity Assertion (user=Dr.White)
+    activate XDS_Rep
+    
+    XDS_Rep -> ARR: 4: [ITI-20] Record Audit Event (@user=Dr.White)
+    activate ARR
+    deactivate ARR
+    deactivate XDS_Rep
+    deactivate XDS_Cons
+end
+
+' --- Secondo Blocco Loop ---
+loop for each doc created
+    XDS_Src -> XDS_Rep: 5: [ITI-41] Provide And Register Document Set-b + Identity Assertion (user=Dr.White)
+    activate XDS_Src
+    activate XDS_Rep
+    
+    XDS_Rep -> ARR: 6: [ITI-20] Record Audit Event (@user=Dr.White)
+    activate ARR
+    deactivate ARR
+    
+    XDS_Rep -> XDS_Reg: 7: [ITI-42] Register Document Set-b
+    activate XDS_Reg
+    
+    XDS_Reg -> ARR: 8: [ITI-20] Record Audit Event
+    activate ARR
+    deactivate ARR
+    deactivate XDS_Reg
+    deactivate XDS_Rep
+    deactivate XDS_Src
+end
+
+' --- Messaggio ITI-81 ---
+AC -> ARR: 9: [ITI-81] Retrieve ATNA Audit Event (where @user=Dr.White)
+activate AC
+activate ARR
+deactivate ARR
+deactivate AC
+
+' --- Terzo Blocco Loop ---
+loop for each doc of interest
+    DC -> XDS_Reg: 10: [ITI-18] Registry Stored Query
+    activate DC
+    activate XDS_Reg
+    deactivate XDS_Reg
+    
+    DC -> XDS_Rep: 11: [ITI-43] Retrieve Document Set
+    activate XDS_Rep
+    deactivate XDS_Rep
+    deactivate DC
+end
 @enduml

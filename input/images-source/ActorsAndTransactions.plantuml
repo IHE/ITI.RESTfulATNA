@@ -12,8 +12,4 @@ SA --> ARR : "Record Audit Event [ITI-20]"
 ARRARF --> ARR : "Record Audit Event [ITI-20]"
 AC --> ARR : "Record Audit Event [ITI-81]"
 AC --> ARR : "Record Audit Event [ITI-82]"
-<<<<<<< HEAD
 @enduml
-=======
-@enduml
->>>>>>> aecebbf7c8e99ea51ac2ce604d256b3815007143

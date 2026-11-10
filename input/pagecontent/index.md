@@ -1,7 +1,4 @@
-
-**This Implementation Guide template includes skeleton pages for each part of an IHE supplement. The instructions for how to fill out these sections can be found in the included [Supplement Template](https://github.com/IHE/supplement-template/blob/master/suppl_template.md). This supplement template should not be included in your github repo or publication. It is included here for easy reference.**
-
-**TODO: Write your executive overview here. Usually a one paragraph explanation of what problem this implementation guide solves.**
+This supplement extends the functionalities of the ATNA Profile by introducing RESTful operations that could be used to submit and retrieve audit records. This allows light weight applications to easily manage the creation and the access audit information. This supplement is based on FHIR protocol and uses FHIR AuditEvent Resources in order to exchange audit records content. This supplement also defines a query transaction that enables access to raw syslog messages.
 
 <div markdown="1" class="stu-note">
 
@@ -14,27 +11,20 @@
 
 This guide is organized into the following sections:
 
-1. Volume 1: Profile Detail
+1. Volume 1: Actors, Transactions and Use Cases
    1. [Introduction](volume-1.html)
-   1. [Actors, Transactions, and Content](volume-1.html#actors-and-transactions)
-   1. [Actor Options](volume-1.html#actor-options)
-   1. [Actor Required Groupings](volume-1.html#required-groupings)
-   1. [Overview](volume-1.html#overview)
-   1. [Security Considerations](volume-1.html#security-considerations)
-   1. [Cross Profile Considerations](volume-1.html#other-grouping)
-   1. **TODO: point to the Volume 1 Appendix if there is one**
+   2. [Actors, Transactions, and Content](volume-1.html#actors-and-transactions)
+   3. [Actor Options](volume-1.html#actor-options)
+   4. [Use Cases](volume-1.html#use-cases)
+   5. [Security Considerations](volume-1.html#security-considerations)
 2. Volume 2: Transaction Detail
-   1. [\[ITI-20\]](ITI-20.html)
-   2. [\[ITI-81\]](ITI-81.html)
-   3. [\[ITI-82\]](ITI-82.html)
-3. Volume 3: Metadata and Content
-   1. [Content One](domain-ZZ.html)
-4. Volume 4: National Extensions
-   1. **TODO: point at the National Extensions if there are any**
-5. Other
+   1. [Record Audit Event [ITI-20]](ITI-20.html)
+   2. [Retrieve ATNA Audit Event [ITI-81]](ITI-81.html)
+   3. [Retrieve Syslog Event [ITI-82]](ITI-82.html)
+3. Other
    1. [Changes to Other IHE Specifications](other.html)
-   1. [Download and Analysis](download.html)
-   1. [Test Plan](testplan.html)
+   2. [Download and Analysis](download.html)
+   3. [Test Plan](testplan.html)
 
 See also the [Table of Contents](toc.html) and the index of [Artifacts](artifacts.html) defined as part of this implementation guide.
 
